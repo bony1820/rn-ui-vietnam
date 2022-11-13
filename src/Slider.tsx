@@ -26,11 +26,13 @@ export default function Slider(props: IProp) {
 
   React.useEffect(() => {
     setTimeout(() => {
+      if (!refRoot) return;
       refTracker?.measureLayout(
-        findNodeHandle(refRoot),
+        findNodeHandle(refRoot) as number,
         (_, __, trackerWidth, ___) => {
+          if (!refRoot) return;
           refContainer?.measureLayout(
-            findNodeHandle(refRoot),
+            findNodeHandle(refRoot) as number,
             (_, __, width, ___) => {
               Animated.timing(_translateX, {
                 toValue: (props.value * width) / props.range - trackerWidth / 2,
@@ -38,10 +40,10 @@ export default function Slider(props: IProp) {
                 useNativeDriver: true,
               }).start();
             },
-            null
+            () => {}
           );
         },
-        null
+        () => {}
       );
     }, 500);
   });
