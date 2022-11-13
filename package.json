@@ -40,13 +40,13 @@
     "ios",
     "android"
   ],
-  "repository": "https://github.com/tuyenbug/react-native-collection-ui",
+  "repository": "https://github.com/tuyenbug/rn-ui-vietnam",
   "author": "tuyen.nguyen5 <tuyen.nguyen5@ntq-solution.com> (https://github.com/tuyenbug)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/tuyenbug/react-native-collection-ui/issues"
+    "url": "https://github.com/tuyenbug/rn-ui-vietnam/issues"
   },
-  "homepage": "https://github.com/tuyenbug/react-native-collection-ui#readme",
+  "homepage": "https://github.com/tuyenbug/rn-ui-vietnam#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
