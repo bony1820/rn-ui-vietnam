@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "react-native-collection-ui": ["./src/index"]
+      "rn-ui-vietnam": ["./src/index"]
     },
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
