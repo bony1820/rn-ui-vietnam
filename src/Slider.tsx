@@ -54,48 +54,46 @@ export default function Slider(props: IProp) {
       ref: (_ref) => (refRoot = _ref),
       style: [styles.root],
     },
-    [
-      React.createElement(
-        View,
+    React.createElement(
+      View,
+      {
+        ref: (_ref) => (refContainer = _ref),
+        style: [styles.container, props.containerStyle],
+      },
+      Array.from(
         {
-          ref: (_ref) => (refContainer = _ref),
-          style: [styles.container, props.containerStyle],
+          length: props.range,
         },
-        Array.from(
-          {
-            length: props.range,
-          },
-          (_, k) => k + 1
-        ).map((item) =>
-          React.createElement(View, {
-            style: [
-              styles.children,
-              item === props?.value &&
-                !props.track &&
-                (styles.highlight || props.trackeActive),
-              props.itemStyle,
-            ],
-          })
-        )
-      ),
-      props?.track &&
-        React.createElement(Animated.View, {
-          ref: (_ref: View | null | undefined) => (refTracker = _ref),
+        (_, k) => k + 1
+      ).map((item) =>
+        React.createElement(View, {
           style: [
-            styles.tracker,
-            styles.highlight,
-            {
-              transform: [
-                {
-                  translateX: _translateX,
-                },
-              ],
-            },
-            props.trackeActive,
-            props.trackeStyle,
+            styles.children,
+            item === props?.value &&
+              !props.track &&
+              (styles.highlight || props.trackeActive),
+            props.itemStyle,
           ],
-        }),
-    ]
+        })
+      )
+    ),
+    props?.track &&
+      React.createElement(Animated.View, {
+        ref: (_ref: View | null | undefined) => (refTracker = _ref),
+        style: [
+          styles.tracker,
+          styles.highlight,
+          {
+            transform: [
+              {
+                translateX: _translateX,
+              },
+            ],
+          },
+          props.trackeActive,
+          props.trackeStyle,
+        ],
+      })
   );
 }
 
