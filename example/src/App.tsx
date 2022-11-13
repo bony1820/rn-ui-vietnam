@@ -1,18 +1,17 @@
 import * as React from 'react';
 
-import { StyleSheet, View, Text } from 'react-native';
-import { multiply } from 'react-native-collection-ui';
+import { StyleSheet, View } from 'react-native';
+import { Slider } from 'react-native-collection-ui';
 
 export default function App() {
-  const [result, setResult] = React.useState<number | undefined>();
-
-  React.useEffect(() => {
-    multiply(3, 7).then(setResult);
-  }, []);
-
   return (
     <View style={styles.container}>
-      <Text>Result: {result}</Text>
+      <Slider
+        range={5}
+        value={3}
+        containerStyle={{ borderRadius: 100 }}
+        track
+      />
     </View>
   );
 }
