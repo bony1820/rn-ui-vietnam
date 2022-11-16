@@ -71,7 +71,7 @@ export default function Slider(props: IProp) {
             styles.children,
             item === props?.value &&
               !props.track &&
-              (styles.highlight || props.trackeActive),
+              (props.trackeActive || styles.highlight),
             props.itemStyle,
           ],
         })

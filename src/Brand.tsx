@@ -1,4 +1,4 @@
-import React, { ComponentType } from 'react';
+import React from 'react';
 import {
   View,
   Text,
@@ -30,7 +30,7 @@ export default function Brand(props: IProps) {
   const renderItem: ListRenderItem<unknown> =
     props.renderItem as unknown as ListRenderItem<unknown>;
   const data: object[] = props.data;
-  const separate = props.separate as number;
+  // const separate = props.separate as number;
 
   return React.createElement(
     View,
@@ -58,12 +58,12 @@ export default function Brand(props: IProps) {
         renderItem: renderItem,
         data: data,
         horizontal: true,
-        ItemSeparatorComponent: React.createElement(View, {
-          style: {
-            width: separate,
-            backgroundColor: '#fff',
-          },
-        }) as unknown as ComponentType<any>,
+        // ItemSeparatorComponent: React.createElement(View, {
+        //   style: {
+        //     width: separate,
+        //     backgroundColor: '#fff',
+        //   },
+        // }) as unknown as ComponentType<any>,
         showsHorizontalScrollIndicator: false,
         keyboardShouldPersistTaps: 'always',
         onViewableItemsChanged: (_data) => (refData = _data),

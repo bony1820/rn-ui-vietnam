@@ -1,27 +1,35 @@
-import React from 'react';
+import React, { PropsWithChildren, ReactNode } from 'react';
 import {
   View,
   Animated,
-  Text,
   Dimensions,
   StyleSheet,
   TouchableOpacity,
+  StyleProp,
+  TextStyle,
 } from 'react-native';
 import { Svg, Path } from 'react-native-svg';
-export default function TabView() {
+
+interface IProp extends PropsWithChildren<any> {
+  tabStyle: StyleProp<TextStyle>;
+  tabNames: string[];
+  children: ReactNode[];
+}
+export default function TabView(props: IProp) {
   const value = React.useRef(new Animated.Value(1)).current;
-  const rateWidth = 436;
-  const rateHeight = 61;
-  const d1 = 'M435 60V0.999985H189C219 0.999985 220 60 250 60H435Z';
-  const d2 = 'M1 60V1H247C217 1 216 60 186 60H1Z';
-  const showTab = () => {
+  const { width: widthScreen, height: heightScreen } = Dimensions.get('window');
+  const rateWidth = 500;
+  const rateHeight = 50;
+  const d1 = 'M500 50V0H217.241C251.724 0 252.874 50 287.356 50H505Z';
+  const d2 = 'M-5 50V0H282.759C248.276 0 247.126 50 212.644 50H0Z';
+  const showTabOne = () => {
     Animated.timing(value, {
       toValue: 1,
       duration: 0,
       useNativeDriver: true,
     }).start();
   };
-  const hideTab = () => {
+  const showTabTwo = () => {
     Animated.timing(value, {
       toValue: 0,
       duration: 0,
@@ -29,18 +37,9 @@ export default function TabView() {
     }).start();
   };
 
-  const opacityTab1 = value.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0, 1],
-  });
-
-  const opacityTab2 = value.interpolate({
-    inputRange: [0, 1],
-    outputRange: [1, 0],
-  });
   const svgView = {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').width * (rateHeight / rateWidth),
+    width: widthScreen,
+    height: widthScreen * (rateHeight / rateWidth),
     viewBox: `0 0 ${rateWidth} ${rateHeight}`,
     fill: 'white',
   };
@@ -49,72 +48,107 @@ export default function TabView() {
     { style: [styles.container] },
     React.createElement(
       Animated.View,
-      { style: [styles.tabOneContainer] },
+      {
+        style: [
+          styles.tabOneContainer,
+          {
+            opacity: value.interpolate({
+              inputRange: [0, 1],
+              outputRange: [0, 1],
+            }),
+          },
+        ],
+      },
+      React.createElement(
+        Svg,
+        {
+          ...svgView,
+        },
+        React.createElement(Path, {
+          d: d1,
+          stroke: 'white',
+        })
+      ),
       React.createElement(
         Animated.View,
         {
           style: {
-            opacity: opacityTab1,
+            minHeight: heightScreen,
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: widthScreen,
+            zIndex: -1,
           },
         },
-        React.createElement(
-          Svg,
-          {
-            ...svgView,
-          },
-          React.createElement(Path, {
-            d: d1,
-            stroke: 'white',
-          })
-        )
-      ),
-      React.createElement(Animated.View, {
-        style: {
-          opacity: opacityTab1,
-          height: 400,
-          backgroundColor: '#0f0',
-        },
-      })
+        props.children[0]
+      )
     ),
     React.createElement(
       Animated.View,
-      { style: [styles.tabTwoContainer] },
+      {
+        style: [
+          styles.tabTwoContainer,
+          {
+            opacity: value.interpolate({
+              inputRange: [0, 1],
+              outputRange: [1, 0],
+            }),
+          },
+        ],
+      },
+      React.createElement(
+        Svg,
+        { ...svgView },
+        React.createElement(Path, {
+          d: d2,
+          stroke: 'white',
+        })
+      ),
       React.createElement(
         Animated.View,
         {
           style: {
-            opacity: opacityTab2,
+            minHeight: heightScreen,
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: widthScreen,
+            zIndex: -1,
           },
         },
-        React.createElement(
-          Svg,
-          { ...svgView },
-          React.createElement(Path, {
-            d: d2,
-            stroke: 'white',
-          })
-        )
-      ),
-      React.createElement(Animated.View, {
-        style: {
-          opacity: opacityTab2,
-          height: 400,
-          backgroundColor: '#00f',
-        },
-      })
+        props.children[1]
+      )
     ),
     React.createElement(
       View,
-      { style: [styles.titleContainer] },
+      {
+        style: [
+          styles.titleContainer,
+          { height: widthScreen * (rateHeight / rateWidth) },
+        ],
+      },
       React.createElement(
         TouchableOpacity,
-        { onPress: showTab },
-        React.createElement(Text, {}, 'TabOne')
+        { onPress: showTabOne },
+        React.createElement(
+          Animated.Text,
+          {
+            style: [props.tabStyle],
+          },
+          props.tabNames[0]
+        )
       ),
       React.createElement(
         TouchableOpacity,
-        { onPress: hideTab },
-        React.createElement(Text, {}, 'TabTwo')
+        { onPress: showTabTwo },
+        React.createElement(
+          Animated.Text,
+          {
+            style: [props.tabStyle],
+          },
+          props.tabNames[1]
+        )
       )
     )
   );
@@ -139,7 +173,6 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     right: 0,
-    height: 60,
     justifyContent: 'space-around',
     alignItems: 'center',
     zIndex: 1000,
