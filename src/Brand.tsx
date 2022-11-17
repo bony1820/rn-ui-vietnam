@@ -31,7 +31,11 @@ export default function Brand(props: IProps) {
     props.renderItem as unknown as ListRenderItem<unknown>;
   const data: object[] = props.data;
   // const separate = props.separate as number;
-
+  const onViewableItemsChanged = React.useCallback(
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    (_data) => (refData = _data),
+    []
+  );
   return React.createElement(
     View,
     { style: [styles.root] },
@@ -66,7 +70,7 @@ export default function Brand(props: IProps) {
         // }) as unknown as ComponentType<any>,
         showsHorizontalScrollIndicator: false,
         keyboardShouldPersistTaps: 'always',
-        onViewableItemsChanged: (_data) => (refData = _data),
+        onViewableItemsChanged: onViewableItemsChanged,
         viewabilityConfig: viewConfigRef.current,
       }),
       React.createElement(LinearGradient, {
