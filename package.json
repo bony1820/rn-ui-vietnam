@@ -40,13 +40,13 @@
     "ios",
     "android"
   ],
-  "repository": "https://github.com/tuyenbug/rn-ui-vietnam",
-  "author": "tuyen.nguyen5 <tuyen.nguyen5@ntq-solution.com> (https://github.com/tuyenbug)",
-  "license": "MIT",
+  "repository": "",
+  "author": "",
+  "license": "",
   "bugs": {
-    "url": "https://github.com/tuyenbug/rn-ui-vietnam/issues"
+    "url": ""
   },
-  "homepage": "https://github.com/tuyenbug/rn-ui-vietnam#readme",
+  "homepage": "",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
